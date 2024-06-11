@@ -1,9 +1,10 @@
 import "./App.css";
+import ListOfUsers from "./components/ListOfUsers";
 
 function App() {
 	return (
 		<>
-			<h3>Hi</h3>
+			<ListOfUsers />
 		</>
 	);
 }
