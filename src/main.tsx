@@ -3,8 +3,15 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-	<React.StrictMode>
-		<App />
-	</React.StrictMode>,
+import { Provider } from "react-redux";
+// Importing store to state managing with redux, ill need to wrap my main application
+// with the provider in order to use Redux.
+import { store } from "./store";
+
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+	<Provider store={store}>
+		<React.StrictMode>
+			<App />
+		</React.StrictMode>
+	</Provider>,
 );
