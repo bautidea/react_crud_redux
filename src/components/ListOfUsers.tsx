@@ -11,9 +11,13 @@ import {
 	Title,
 } from "@tremor/react";
 import { DeleteIcon, EditIcon } from "../assets/icons";
+import { useAppSelector } from "../hooks/useStore";
 import "./ListOfUsers.css";
 
 export default function Example() {
+	// Im calling the '.users' property from 'store' reducer.
+	const users = useAppSelector((state) => state.users);
+
 	return (
 		<>
 			<Card>
