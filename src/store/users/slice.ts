@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 // A slice is a section to manage a state for a specific use case, in this case
 // this slice will manage all states for users.
@@ -11,8 +11,9 @@ export interface User {
 }
 
 // We have two types of user, the user as person, and the the user that we use for data storage
+export type UserId = string;
 export interface UserWithId extends User {
-	id: string;
+	id: UserId;
 }
 
 const initialState: UserWithId[] = [
@@ -40,9 +41,18 @@ const initialState: UserWithId[] = [
 export const usersSlice = createSlice({
 	name: "users",
 	initialState: initialState,
-	reducers: {},
+	reducers: {
+		deleteUserById: (state, action: PayloadAction<UserId>) => {
+			const idToRemove = action.payload;
+			return state.filter((user) => user.id !== idToRemove);
+		},
+	},
 });
 
 // Here im exporting as default only the reducer, because it is the main item i need form a slice.
 // By using default export im making the import statement concise and clear.
 export default usersSlice.reducer;
+
+// The best thing to do when you have a reducer is to export the action, Redux Toolkit allows this in an
+// easy way.
+export const { deleteUserById } = usersSlice.actions;

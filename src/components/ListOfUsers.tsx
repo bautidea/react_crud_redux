@@ -11,13 +11,22 @@ import {
 	Title,
 } from "@tremor/react";
 import { DeleteIcon, EditIcon } from "../assets/icons";
-import { useAppSelector } from "../hooks/useStore";
+import { useAppDispatch, useAppSelector } from "../hooks/store";
+import { deleteUserById, type UserId } from "../store/users/slice";
 import "./ListOfUsers.css";
 
 export default function Example() {
 	// Im calling the '.users' property from 'store' reducer.
 	const users = useAppSelector((state) => state.users);
 
+	// In order to use reducer, first we must retrieve the way of performing
+	// actions, by using 'useAppDispatch'. This dispatch allow us to send
+	// actions.
+	const dispatch = useAppDispatch();
+
+	const handleRemoveUser = (id: UserId) => {
+		dispatch(deleteUserById(id));
+	};
 	return (
 		<>
 			<Card>
@@ -57,7 +66,10 @@ export default function Example() {
 									<button type="button" className="marginRight">
 										<EditIcon />
 									</button>
-									<button type="button">
+									<button
+										type="button"
+										onClick={() => handleRemoveUser(item.id)}
+									>
 										<DeleteIcon />
 									</button>
 								</TableCell>
