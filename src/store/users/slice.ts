@@ -16,7 +16,7 @@ export interface UserWithId extends User {
 	id: UserId;
 }
 
-const initialState: UserWithId[] = [
+const DEFAULT_STATE: UserWithId[] = [
 	{
 		id: "1",
 		name: "John Doe",
@@ -36,6 +36,14 @@ const initialState: UserWithId[] = [
 		github: "AliceJohnson",
 	},
 ];
+
+// To set the initial state im using an IIFE (Immediately Invoked Function Expression), is a function
+// that runs the moment it is invoked or called in the event loop.
+const initialState: UserWithId[] = (() => {
+	const persistedState = localStorage.getItem("__redux_state__");
+
+	return persistedState ? JSON.parse(persistedState).users : DEFAULT_STATE;
+})();
 
 // All Slices needs three things, a name to be called, its initial state, and the reducers.
 export const usersSlice = createSlice({
