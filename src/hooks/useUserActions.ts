@@ -1,5 +1,10 @@
 import { useAppDispatch } from "../hooks/store";
-import { deleteUserById, type UserId } from "../store/users/slice";
+import {
+	addNewUser,
+	deleteUserById,
+	type User,
+	type UserId,
+} from "../store/users/slice";
 
 export function useUserActions() {
 	// In order to use reducer, first we must retrieve the way of performing
@@ -7,9 +12,13 @@ export function useUserActions() {
 	// actions.
 	const dispatch = useAppDispatch();
 
+	const addUser = ({ name, email, github }: User) => {
+		dispatch(addNewUser({ name, email, github }));
+	};
+
 	const removeUser = (id: UserId) => {
 		dispatch(deleteUserById(id));
 	};
 
-	return { removeUser };
+	return { addUser, removeUser };
 }

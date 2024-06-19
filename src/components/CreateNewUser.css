@@ -1,0 +1,22 @@
+.newUserCard { 
+    box-shadow: none;
+}
+
+.newUserForm {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between; 
+    padding-inline: 5rem;
+    margin-top: 15px;
+}
+
+.newUserForm .textInput {
+    width: 18rem;
+    font-size: 15px;
+}
+
+.submitBtn {
+    padding: 0px !important;
+    border: none;
+}
