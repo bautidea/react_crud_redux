@@ -1,22 +1,51 @@
-.newUserCard { 
-    box-shadow: none;
+.newUserCard {
+  box-shadow: none;
+  padding-bottom: 50px !important;
 }
 
 .newUserForm {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between; 
-    padding-inline: 5rem;
-    margin-top: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: 5rem;
+  margin-top: 15px;
 }
 
 .newUserForm .textInput {
-    width: 18rem;
-    font-size: 15px;
+  width: 18rem;
+  font-size: 15px;
+}
+
+.btnContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
 }
 
 .submitBtn {
-    padding: 0px !important;
-    border: none;
+  padding: 0px !important;
+  border: none;
+}
+
+.tooltip {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.badge {
+  color: white;
+  border-radius: 10px;
+  border: 1px solid gray;
+}
+
+.badgeGreen {
+  background-color: green;
+}
+
+.badgeRed {
+  background-color: red;
 }
