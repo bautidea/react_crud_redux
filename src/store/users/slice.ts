@@ -1,4 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { fetchUsers } from "../../services/fetchUsers";
 
 // A slice is a section to manage a state for a specific use case, in this case
 // this slice will manage all states for users.
@@ -16,26 +17,7 @@ export interface UserWithId extends User {
 	id: UserId;
 }
 
-const DEFAULT_STATE: UserWithId[] = [
-	{
-		id: "1",
-		name: "John Doe",
-		email: "doe.jhon@gmail.com",
-		github: "DoeJohn",
-	},
-	{
-		id: "2",
-		name: "Jane Smith",
-		email: "jane.smith@hotmail.com",
-		github: "JaneSmith",
-	},
-	{
-		id: "3",
-		name: "Alice Johnson",
-		email: "alice.johnson@gmal.com",
-		github: "AliceJohnson",
-	},
-];
+const DEFAULT_STATE: UserWithId[] = await fetchUsers();
 
 // To set the initial state im using an IIFE (Immediately Invoked Function Expression), is a function
 // that runs the moment it is invoked or called in the event loop.
@@ -59,6 +41,8 @@ export const usersSlice = createSlice({
 			return [...state, { id, ...action.payload }];
 		},
 		deleteUserById: (state, action: PayloadAction<UserId>) => {
+			console.log(action);
+
 			const idToRemove = action.payload;
 			return state.filter((user) => user.id !== idToRemove);
 		},

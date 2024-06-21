@@ -3,9 +3,19 @@
 In this project i developed a CRUD (Create Read Update Delete) to operate on stored data, that will be stored on local, by using <a href='https://redux-toolkit.js.org/'>Redux Toolkit</a> to manage state in React.
 
 Developed project using:
+
 <ul>
 <li><a href='https://biomejs.dev/'>Biome toolchain</a> linter.</li>
 <li><a href='https://www.tremor.so/'>Tremor</a> components to build charts.</li>
 <li><a href='https://redux-toolkit.js.org/'>Redux Toolkit</a> for state managing due to its simple installation </li>
-<li>Middleware for data persistency</li>
-</ul> 
+<li>Used a REDUX Middleware for:
+  <ul>
+    <li>
+      data persistency.
+    </li>
+    <li>
+      Optimistic UI, by utilizing <a href='https://sonner.emilkowal.ski/'>Sonner</a> component, to eliminate loading UI.
+    </li>
+  </ul>
+</li>
+</ul>

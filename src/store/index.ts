@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, type Middleware } from "@reduxjs/toolkit";
 import usersReducer from "./users/slice";
 
 /* 
@@ -33,11 +33,24 @@ In this case the function would perform like this when deleting a user
     console.log(store.getState()); -> { users: [ {...}, {...} ] } (Array of users, without the deleted one)
   };
 */
-const persistanceLocalStorageMiddleware = (store) => (next) => (action) => {
-	// In this case after every action we would like to store the current state.
-	next(action);
+const persistanceLocalStorageMiddleware: Middleware =
+	(store) => (next) => (action) => {
+		// In this case after every action we would like to store the current state.
+		next(action);
 
-	localStorage.setItem("__redux_state__", JSON.stringify(store.getState()));
+		localStorage.setItem("__redux_state__", JSON.stringify(store.getState()));
+	};
+
+const syncWithData: Middleware = (store) => (next) => (action) => {
+	// const { type, payload } = action;
+
+	// console.log(store.getState());
+	// console.log(action);
+
+	// next(action);
+
+	// console.log(store.getState());
+	return;
 };
 
 // Store (the name of the folder) is a place in which im going to save my states, and where
@@ -47,7 +60,10 @@ export const store = configureStore({
 		users: usersReducer,
 	},
 	middleware: (getDefaultMiddleware) =>
-		getDefaultMiddleware().concat(persistanceLocalStorageMiddleware),
+		getDefaultMiddleware().concat([
+			persistanceLocalStorageMiddleware,
+			syncWithData,
+		]),
 });
 
 // Since im using TS i have to specify the type of the store.
