@@ -8,10 +8,14 @@ import { Provider } from "react-redux";
 // with the provider in order to use Redux.
 import { store } from "./store";
 
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-	<Provider store={store}>
-		<React.StrictMode>
-			<App />
-		</React.StrictMode>
-	</Provider>,
-);
+async function main() {
+	ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+		<Provider store={store}>
+			<React.StrictMode>
+				<App />
+			</React.StrictMode>
+		</Provider>,
+	);
+}
+
+main();

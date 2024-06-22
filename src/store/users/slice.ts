@@ -1,4 +1,8 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import {
+	createAsyncThunk,
+	createSlice,
+	type PayloadAction,
+} from "@reduxjs/toolkit";
 import { fetchUsers } from "../../services/fetchUsers";
 
 // A slice is a section to manage a state for a specific use case, in this case
@@ -17,15 +21,13 @@ export interface UserWithId extends User {
 	id: UserId;
 }
 
-const DEFAULT_STATE: UserWithId[] = await fetchUsers();
-
-// To set the initial state im using an IIFE (Immediately Invoked Function Expression), is a function
-// that runs the moment it is invoked or called in the event loop.
-const initialState: UserWithId[] = (() => {
+export const obtainUsers = createAsyncThunk("users/obtainUsers", async () => {
 	const persistedState = localStorage.getItem("__redux_state__");
 
-	return persistedState ? JSON.parse(persistedState).users : DEFAULT_STATE;
-})();
+	return persistedState ? JSON.parse(persistedState) : await fetchUsers();
+});
+
+const initialState: UserWithId[] = [];
 
 // All Slices needs three things, a name to be called, its initial state, and the reducers.
 export const usersSlice = createSlice({
@@ -41,11 +43,14 @@ export const usersSlice = createSlice({
 			return [...state, { id, ...action.payload }];
 		},
 		deleteUserById: (state, action: PayloadAction<UserId>) => {
-			console.log(action);
-
 			const idToRemove = action.payload;
 			return state.filter((user) => user.id !== idToRemove);
 		},
+	},
+	extraReducers(builder) {
+		builder.addCase(obtainUsers.fulfilled, (state, action) => {
+			return action.payload;
+		});
 	},
 });
 

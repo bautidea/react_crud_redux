@@ -38,7 +38,12 @@ const persistanceLocalStorageMiddleware: Middleware =
 		// In this case after every action we would like to store the current state.
 		next(action);
 
-		localStorage.setItem("__redux_state__", JSON.stringify(store.getState()));
+		if (action.type !== "users/obtainUsers/pending") {
+			localStorage.setItem(
+				"__redux_state__",
+				JSON.stringify(store.getState().users),
+			);
+		}
 	};
 
 const syncWithData: Middleware = (store) => (next) => (action) => {
@@ -50,7 +55,7 @@ const syncWithData: Middleware = (store) => (next) => (action) => {
 	// next(action);
 
 	// console.log(store.getState());
-	return;
+	next(action);
 };
 
 // Store (the name of the folder) is a place in which im going to save my states, and where
