@@ -1,5 +1,7 @@
 import { configureStore, type Middleware } from "@reduxjs/toolkit";
-import usersReducer from "./users/slice";
+import { toast } from "sonner";
+import { createUser } from "../services/users";
+import usersReducer, { deleteUserById } from "./users/slice";
 
 /* 
 Im defining a 'middleware' to make data persist in time. 
@@ -46,16 +48,33 @@ const persistanceLocalStorageMiddleware: Middleware =
 		}
 	};
 
-const syncWithData: Middleware = (store) => (next) => (action) => {
-	// const { type, payload } = action;
+const syncWithData: Middleware = (store) => (next) => async (action) => {
+	const { type, payload } = action;
 
-	// console.log(store.getState());
-	// console.log(action);
-
-	// next(action);
-
-	// console.log(store.getState());
 	next(action);
+
+	if (type === "users/addNewUser") {
+		// After the UI gets updated im retrieving the generated user.
+		const id = store.getState().users.slice(-1)[0].id;
+
+		// Using a try - catch block to perform a rollback.
+		try {
+			// Calling API call to create user in DB.
+			const response = await createUser({ id, ...payload });
+
+			if (response.ok) {
+				toast.success("User created!");
+			}
+			// Id response is not ok then i throw an error to be catch.
+			else {
+				throw new Error("Connection with DB was not successful");
+			}
+		} catch (error) {
+			// Catching error and deleting the created new user.
+			toast.error("User couldn't be created");
+			store.dispatch(deleteUserById(id));
+		}
+	}
 };
 
 // Store (the name of the folder) is a place in which im going to save my states, and where
@@ -83,3 +102,6 @@ export type AppStore = typeof store;
 export type RootState = ReturnType<AppStore["getState"]>;
 // Infer the 'AppDispatch' from the store also.
 export type AppDispatch = AppStore["dispatch"];
+function removeUser(id: any) {
+	throw new Error("Function not implemented.");
+}
