@@ -102,6 +102,3 @@ export type AppStore = typeof store;
 export type RootState = ReturnType<AppStore["getState"]>;
 // Infer the 'AppDispatch' from the store also.
 export type AppDispatch = AppStore["dispatch"];
-function removeUser(id: any) {
-	throw new Error("Function not implemented.");
-}
