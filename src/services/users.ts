@@ -1,4 +1,4 @@
-import type { UserWithId } from "../store/users/slice";
+import type { UserId, UserWithId } from "../store/users/slice";
 
 const usersEndPoint = "https://jsonplaceholder.typicode.com/users";
 
@@ -44,6 +44,22 @@ export async function createUser({ id, name, email, github }: UserWithId) {
 			return response;
 		})
 		.catch((err) => {
+			// Ensuring the error is thrown to trigger the catch-block
+			// in the middleware.
+			throw err;
+		});
+}
+
+export async function deleteUser(id: UserId) {
+	return fetch(`${usersEndPoint}/${id}`, {
+		method: "DELETE",
+	})
+		.then((response) => {
+			return response;
+		})
+		.catch((err) => {
+			// Ensuring the error is thrown to trigger the catch-block
+			// in the middleware.
 			throw err;
 		});
 }

@@ -47,6 +47,14 @@ export const usersSlice = createSlice({
 
 			return state.filter((user) => user.id !== idToRemove);
 		},
+		rollbackUser: (state, action: PayloadAction<UserWithId>) => {
+			const isUserAlreadyDefined = state.some(
+				(user) => user.id === action.payload.id,
+			);
+			if (!isUserAlreadyDefined) {
+				return [...state, action.payload];
+			}
+		},
 	},
 	extraReducers(builder) {
 		builder.addCase(obtainUsers.fulfilled, (_state, action) => {
@@ -61,4 +69,4 @@ export default usersSlice.reducer;
 
 // The best thing to do when you have a reducer is to export the action, Redux Toolkit allows this in an
 // easy way.
-export const { addNewUser, deleteUserById } = usersSlice.actions;
+export const { addNewUser, deleteUserById, rollbackUser } = usersSlice.actions;

@@ -1,7 +1,11 @@
 import { configureStore, type Middleware } from "@reduxjs/toolkit";
 import { toast } from "sonner";
-import { createUser } from "../services/users";
-import usersReducer, { deleteUserById } from "./users/slice";
+import { createUser, deleteUser } from "../services/users";
+import usersReducer, {
+	deleteUserById,
+	rollbackUser,
+	type UserWithId,
+} from "./users/slice";
 
 /* 
 Im defining a 'middleware' to make data persist in time. 
@@ -50,13 +54,13 @@ const persistanceLocalStorageMiddleware: Middleware =
 
 const syncWithData: Middleware = (store) => (next) => async (action) => {
 	const { type, payload } = action;
+	const previousState = store.getState();
 
 	next(action);
-
+	// Middleware to catch when a user gets added into DB.
 	if (type === "users/addNewUser") {
-		// After the UI gets updated im retrieving the generated user.
+		// After the UI gets updated im retrieving the generated user id.
 		const id = store.getState().users.slice(-1)[0].id;
-
 		// Using a try - catch block to perform a rollback.
 		try {
 			// Calling API call to create user in DB.
@@ -73,6 +77,25 @@ const syncWithData: Middleware = (store) => (next) => async (action) => {
 			// Catching error and deleting the created new user.
 			toast.error("User couldn't be created");
 			store.dispatch(deleteUserById(id));
+		}
+	}
+
+	// Middleware to catch when a user gets deleted.
+	if (type === "users/deleteUserById") {
+		const userToRemove = previousState.users.find(
+			(user: UserWithId) => user.id === payload,
+		);
+
+		try {
+			const response = await deleteUser(payload);
+			store.dispatch(rollbackUser(payload));
+			if (response.ok) toast.success("User deleted!");
+			else {
+				throw new Error("Connection with DB was not successful");
+			}
+		} catch (error) {
+			toast.error("User couldn't be deleted");
+			store.dispatch(rollbackUser(userToRemove));
 		}
 	}
 };
