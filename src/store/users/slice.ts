@@ -40,7 +40,11 @@ export const usersSlice = createSlice({
 			const id = state.slice(-1)[0].id + 1;
 
 			// action.payload  = { name, email, github }
-			return [...state, { id, ...action.payload }];
+
+			// In REDUX we dont have to return a new state
+			// -> return [...state, { id, ...action.payload }];
+			// Thanks to Immer we can modify or mutate the original state.
+			state.push({ id, ...action.payload });
 		},
 		deleteUserById: (state, action: PayloadAction<UserId>) => {
 			const idToRemove = action.payload;
@@ -48,11 +52,19 @@ export const usersSlice = createSlice({
 			return state.filter((user) => user.id !== idToRemove);
 		},
 		rollbackUser: (state, action: PayloadAction<UserWithId>) => {
+			// First checking if the removed user is on the state.
 			const isUserAlreadyDefined = state.some(
 				(user) => user.id === action.payload.id,
 			);
+
+			// If the user couldn't be found we add it again.
 			if (!isUserAlreadyDefined) {
-				return [...state, action.payload];
+				// Fist adding the deleted user.
+				state.push(action.payload);
+				// Then sorting the array so users gets ordered by id number.
+				state.sort((a, b) => {
+					return a.id - b.id;
+				});
 			}
 		},
 	},

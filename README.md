@@ -1,6 +1,11 @@
 # CRUD w/ React + Redux Toolkit + Biome toolchain & Tremor.
 
-In this project i developed a CRUD (Create Read Update Delete) to operate on stored data, that will be stored on local, by using <a href='https://redux-toolkit.js.org/'>Redux Toolkit</a> to manage state in React.
+
+In this project i developed a CRUD (Create Read Update Delete) to operate over a toy API, which state, will be managed by <a href='https://redux-toolkit.js.org/'>Redux Toolkit</a>.
+
+<div align='center' display='flex' flex-direction='row' width='100%' >
+<img src='./public/crud_git_img.png' width='85%' >
+</div>
 
 Developed project using:
 
@@ -11,11 +16,18 @@ Developed project using:
 <li>Used a REDUX Middleware for:
   <ul>
     <li>
-      data persistency.
+      Data persistency, the state is saved locally after every update.
     </li>
     <li>
-      Optimistic UI, by utilizing <a href='https://sonner.emilkowal.ski/'>Sonner</a> component, to eliminate loading UI.
+      Optimistic UI, by utilizing <a href='https://sonner.emilkowal.ski/'>Sonner</a> component, to eliminate loading UI while performing actions with the DB.
     </li>
   </ul>
 </li>
+<li>Used API = <a href='https://jsonplaceholder.typicode.com'>{JSON} Placeholder</a>.</li>
 </ul>
+
+
+<div align='center' display='flex' flex-direction='row' width='100%'>
+<img src='./public/gif_deleting_user_fail.gif' width='47%' >
+<img src='./public/gif_deleting_user_succes.gif' width='47%' >
+</div>

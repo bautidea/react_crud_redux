@@ -6,7 +6,6 @@ import usersReducer, {
 	rollbackUser,
 	type UserWithId,
 } from "./users/slice";
-
 /* 
 Im defining a 'middleware' to make data persist in time. 
 * https://www.freecodecamp.org/news/what-is-redux-middleware-and-how-to-create-one-from-scratch/ 
@@ -88,14 +87,16 @@ const syncWithData: Middleware = (store) => (next) => async (action) => {
 
 		try {
 			const response = await deleteUser(payload);
-			store.dispatch(rollbackUser(payload));
+
 			if (response.ok) toast.success("User deleted!");
 			else {
 				throw new Error("Connection with DB was not successful");
 			}
 		} catch (error) {
 			toast.error("User couldn't be deleted");
-			store.dispatch(rollbackUser(userToRemove));
+
+			// Doing rollback when user to be removed is found.
+			if (userToRemove) store.dispatch(rollbackUser(userToRemove));
 		}
 	}
 };
