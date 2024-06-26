@@ -1,10 +1,10 @@
 import { configureStore, type Middleware } from "@reduxjs/toolkit";
 import { toast } from "sonner";
 import { createUser, deleteUser } from "../services/users";
+import type { UserWithId } from "../types";
 import usersReducer, {
-	deleteUserById,
-	rollbackUser,
-	type UserWithId,
+	rollbackAddToState,
+	rollbackDropFromState,
 } from "./users/slice";
 /* 
 Im defining a 'middleware' to make data persist in time. 
@@ -39,7 +39,7 @@ In this case the function would perform like this when deleting a user
   };
 */
 const persistanceLocalStorageMiddleware: Middleware =
-	(store) => (next) => (action) => {
+	(store) => (next) => async (action) => {
 		// In this case after every action we would like to store the current state.
 		next(action);
 
@@ -75,7 +75,8 @@ const syncWithData: Middleware = (store) => (next) => async (action) => {
 		} catch (error) {
 			// Catching error and deleting the created new user.
 			toast.error("User couldn't be created");
-			store.dispatch(deleteUserById(id));
+
+			store.dispatch(rollbackDropFromState(id));
 		}
 	}
 
@@ -96,7 +97,7 @@ const syncWithData: Middleware = (store) => (next) => async (action) => {
 			toast.error("User couldn't be deleted");
 
 			// Doing rollback when user to be removed is found.
-			if (userToRemove) store.dispatch(rollbackUser(userToRemove));
+			if (userToRemove) store.dispatch(rollbackAddToState(userToRemove));
 		}
 	}
 };

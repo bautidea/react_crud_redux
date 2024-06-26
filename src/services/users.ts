@@ -1,13 +1,6 @@
-import type { UserId, UserWithId } from "../store/users/slice";
+import type { FetchedData, UserId, UserWithId } from "../types";
 
 const usersEndPoint = "https://jsonplaceholder.typicode.com/users";
-
-interface FetchedData {
-	id: number;
-	name: string;
-	email: string;
-	username: string;
-}
 
 export async function fetchUsers() {
 	return fetch(usersEndPoint)
@@ -24,6 +17,7 @@ export async function fetchUsers() {
 				name,
 				email,
 				github: username,
+				beingEdit: false,
 			}));
 		})
 		.catch((err) => console.log(`Error when fetching data: ${err}`));

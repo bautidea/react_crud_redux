@@ -1,12 +1,7 @@
 import { useCallback } from "react";
 import { useAppDispatch } from "../hooks/store";
-import {
-	addNewUser,
-	deleteUserById,
-	obtainUsers,
-	type User,
-	type UserId,
-} from "../store/users/slice";
+import { addNewUser, deleteUserById, obtainUsers } from "../store/users/slice";
+import type { User, UserId } from "../types";
 
 export function useUserActions() {
 	// In order to use reducer, first we must retrieve the way of performing
