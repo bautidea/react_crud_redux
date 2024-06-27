@@ -4,11 +4,14 @@ import {
 	Card,
 	Table,
 	TableBody,
+	TableCell,
 	TableHead,
 	TableHeaderCell,
 	TableRow,
+	TextInput,
 	Title,
 } from "@tremor/react";
+import { CheckIcon, XCircle } from "../../assets/icons";
 import { useAppSelector } from "../../hooks/store";
 import type { UserCellProps } from "../../types";
 import "./ListOfUsers.css";
@@ -32,6 +35,7 @@ export default function Example() {
 							<TableHeaderCell>Id</TableHeaderCell>
 							<TableHeaderCell>Name</TableHeaderCell>
 							<TableHeaderCell>Email</TableHeaderCell>
+							<TableHeaderCell>GitHub</TableHeaderCell>
 							<TableHeaderCell>Actions</TableHeaderCell>
 						</TableRow>
 					</TableHead>
@@ -39,7 +43,9 @@ export default function Example() {
 					<TableBody>
 						{users.map((item) => (
 							<TableRow key={item.id} className="listOfUsers">
-								<UserCell user={item} />
+								{(item.beingEdit && <EditCell user={item} />) || (
+									<UserCell user={item} />
+								)}
 							</TableRow>
 						))}
 					</TableBody>
@@ -50,9 +56,33 @@ export default function Example() {
 }
 
 function EditCell({ user }: UserCellProps) {
+	const { id, name, email, github } = user;
+
 	return (
 		<>
-			<div>sss</div>
+			<TableCell>{id}</TableCell>
+
+			<TableCell>
+				<TextInput name="name" placeholder={name} />
+			</TableCell>
+
+			<TableCell>
+				<TextInput name="email" placeholder={email} />
+			</TableCell>
+
+			<TableCell>
+				<TextInput name="github" placeholder={github} />
+			</TableCell>
+
+			<TableCell>
+				<button type="button" className="marginRight">
+					<CheckIcon />
+				</button>
+
+				<button type="button">
+					<XCircle />
+				</button>
+			</TableCell>
 		</>
 	);
 }

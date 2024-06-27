@@ -1,6 +1,11 @@
 import { useCallback } from "react";
 import { useAppDispatch } from "../hooks/store";
-import { addNewUser, deleteUserById, obtainUsers } from "../store/users/slice";
+import {
+	addNewUser,
+	deleteUserById,
+	editUserById,
+	obtainUsers,
+} from "../store/users/slice";
 import type { User, UserId } from "../types";
 
 export function useUserActions() {
@@ -21,5 +26,9 @@ export function useUserActions() {
 		dispatch(deleteUserById(id));
 	};
 
-	return { getUsers, addUser, removeUser };
+	const editUser = (id: UserId) => {
+		dispatch(editUserById(id));
+	};
+
+	return { getUsers, addUser, removeUser, editUser };
 }

@@ -7,6 +7,7 @@ export interface User {
 
 // We have two types of user, the user as person, and the the user that we use for data storage
 export type UserId = number;
+
 export interface UserWithId extends User {
 	id: UserId;
 	beingEdit: boolean;

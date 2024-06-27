@@ -1,16 +1,20 @@
 import { TableCell } from "@tremor/react";
 import { DeleteIcon, EditIcon } from "../../assets/icons";
 import { useUserActions } from "../../hooks/useUserActions";
-import type { UserCellProps, UserId } from "../../types";
+import type { UserCellProps } from "../../types";
 import "./ListOfUsers.css";
 
 export function UserCell({ user }: UserCellProps) {
-	const { removeUser } = useUserActions();
+	const { removeUser, editUser } = useUserActions();
 
 	const { id, name, email, github } = user;
 
-	function handleRemoveClick(id: UserId) {
+	function handleRemoveClick() {
 		removeUser(id);
+	}
+
+	function handleEditClick() {
+		editUser(id);
 	}
 
 	return (
@@ -25,11 +29,12 @@ export function UserCell({ user }: UserCellProps) {
 				{name}
 			</TableCell>
 			<TableCell>{email}</TableCell>
+			<TableCell>{github}</TableCell>
 			<TableCell>
-				<button type="button" className="marginRight">
+				<button type="button" className="marginRight" onClick={handleEditClick}>
 					<EditIcon />
 				</button>
-				<button type="button" onClick={() => handleRemoveClick(id)}>
+				<button type="button" onClick={handleRemoveClick}>
 					<DeleteIcon />
 				</button>
 			</TableCell>

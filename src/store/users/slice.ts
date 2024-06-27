@@ -37,11 +37,24 @@ export const usersSlice = createSlice({
 			// Thanks to Immer we can modify or mutate the original state.
 			state.push({ id, ...action.payload, beingEdit });
 		},
+
 		deleteUserById: (state, action: PayloadAction<UserId>) => {
 			const idToRemove = action.payload;
 
 			return state.filter((user) => user.id !== idToRemove);
 		},
+
+		editUserById: (state, action: PayloadAction<UserId>) => {
+			const idToEdit = action.payload;
+
+			return state.map((user) => {
+				if (user.id === idToEdit) {
+					return { ...user, beingEdit: true };
+				}
+				return { ...user };
+			});
+		},
+
 		rollbackAddToState: (state, action: PayloadAction<UserWithId>) => {
 			// First checking if the removed user is on the state.
 			const isUserAlreadyDefined = state.some(
@@ -58,6 +71,7 @@ export const usersSlice = createSlice({
 				});
 			}
 		},
+
 		rollbackDropFromState: (state, action: PayloadAction<UserId>) => {
 			const idToFilter = action.payload;
 
@@ -80,6 +94,7 @@ export default usersSlice.reducer;
 export const {
 	addNewUser,
 	deleteUserById,
+	editUserById,
 	rollbackAddToState,
 	rollbackDropFromState,
 } = usersSlice.actions;
