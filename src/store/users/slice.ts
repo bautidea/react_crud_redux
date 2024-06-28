@@ -49,7 +49,7 @@ export const usersSlice = createSlice({
 
 			return state.map((user) => {
 				if (user.id === idToEdit) {
-					return { ...user, beingEdit: true };
+					return { ...user, beingEdit: !user.beingEdit };
 				}
 				return { ...user };
 			});

@@ -1,3 +1,7 @@
+.usersCard {
+    border-radius: 10px
+}
+
 .listOfUsers:hover {
     background: rgba(145, 145, 145, 0.10);
 }
@@ -16,6 +20,7 @@
 
 .nameCell {
     display: flex;
+    flex-direction: row;
     align-items:center
 }
 
@@ -23,9 +28,28 @@
     width: 32px;
     height: auto;
     border-radius: 50%;
-    margin-right: 10px
+    margin-right: 20px
 }
 
 .marginRight {
     margin-right: 15px;
 }
+
+.centerInput {
+    display: flex;
+    justify-content: center;
+}
+
+.editInput {
+    border: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    -moz-appearance: none;
+    background: #f2f2f2;
+    border-radius: 10px;
+    width:250px !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+

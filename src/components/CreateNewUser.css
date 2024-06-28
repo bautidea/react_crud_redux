@@ -1,6 +1,7 @@
 .newUserCard {
   box-shadow: none;
   padding-bottom: 50px !important;
+  border-radius: 10px;
 }
 
 .newUserForm {
@@ -15,6 +16,7 @@
 .newUserForm .textInput {
   width: 18rem;
   font-size: 15px;
+  border-radius: 10px;
 }
 
 .btnContainer {
