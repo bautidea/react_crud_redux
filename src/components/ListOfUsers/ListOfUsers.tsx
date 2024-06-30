@@ -30,14 +30,14 @@ export function ListOfUsers() {
 					<Badge className="badgeTitle">{users.length}</Badge>
 				</Title>
 
-				<Table>
+				<Table className="usersTable">
 					<TableHead>
 						<TableRow>
 							<TableHeaderCell>Id</TableHeaderCell>
 							<TableHeaderCell>Name</TableHeaderCell>
 							<TableHeaderCell>Email</TableHeaderCell>
 							<TableHeaderCell>GitHub</TableHeaderCell>
-							<TableHeaderCell>Actions</TableHeaderCell>
+							<TableHeaderCell className="actionCell">Actions</TableHeaderCell>
 						</TableRow>
 					</TableHead>
 
@@ -69,7 +69,7 @@ function EditCell({ user }: UserCellProps) {
 		<>
 			<TableCell>{id}</TableCell>
 
-			<TableCell className="centerInput">
+			<TableCell>
 				<TextInput name="name" placeholder={name} className="editInput" />
 			</TableCell>
 
@@ -77,15 +77,14 @@ function EditCell({ user }: UserCellProps) {
 				<TextInput name="email" placeholder={email} className="editInput" />
 			</TableCell>
 
-			<TableCell>
+			<TableCell className="gitCell">
 				<TextInput name="github" placeholder={github} className="editInput" />
 			</TableCell>
 
-			<TableCell>
+			<TableCell className="actionCell">
 				<button type="button" className="marginRight">
 					<CheckIcon />
 				</button>
-
 				<button type="button" onClick={handleStopEdit}>
 					<XCircle />
 				</button>

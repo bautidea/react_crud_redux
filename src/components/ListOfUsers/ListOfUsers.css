@@ -1,55 +1,75 @@
 .usersCard {
-    border-radius: 10px
+  border-radius: 10px;
+}
+
+.listOfUsers {
+  height: 100%;
 }
 
 .listOfUsers:hover {
-    background: rgba(145, 145, 145, 0.10);
+  background: rgba(145, 145, 145, 0.1);
 }
 
 .tableTitle {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 .badgeTitle {
-    margin-left: 10px;
-    background: rgba(41,154,194);
-    border-radius: 15px;
-    padding: 6px 15px !important;
-    color: #eeeee4;
+  margin-left: 10px;
+  background: rgba(41, 154, 194);
+  border-radius: 15px;
+  padding: 6px 15px !important;
+  color: #eeeee4;
+}
+
+.usersTable {
+  table-layout: fixed;
+  width: 100;
+  padding: auto;
+}
+
+.headCell {
+  text-align: center !important;
 }
 
 .nameCell {
-    display: flex;
-    flex-direction: row;
-    align-items:center
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
-.userImg {
-    width: 32px;
-    height: auto;
-    border-radius: 50%;
-    margin-right: 20px
+.userImg,
+.fillImg {
+  width: 32px;
+  height: auto;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.gitCell {
+  width: 200px;
+}
+
+.actionCell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .marginRight {
-    margin-right: 15px;
-}
-
-.centerInput {
-    display: flex;
-    justify-content: center;
+  margin-right: 15px;
 }
 
 .editInput {
-    border: none;
-    appearance: none;
-    -webkit-appearance: none;
-    -ms-appearance: none;
-    -moz-appearance: none;
-    background: #f2f2f2;
-    border-radius: 10px;
-    width:250px !important;
-    outline: none !important;
-    box-shadow: none !important;
+  border: none;
+  appearance: none;
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  -moz-appearance: none;
+  background: #cdd6d0;
+  border-radius: 10px;
+  width: 80% !important;
+  outline: none !important;
+  box-shadow: none !important;
+  color: #fdfffc;
 }
-

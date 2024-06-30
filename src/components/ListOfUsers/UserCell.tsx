@@ -29,8 +29,8 @@ export function UserCell({ user }: UserCellProps) {
 				{name}
 			</TableCell>
 			<TableCell>{email}</TableCell>
-			<TableCell>{github}</TableCell>
-			<TableCell>
+			<TableCell className="gitCell">{github}</TableCell>
+			<TableCell className="actionCell">
 				<button type="button" className="marginRight" onClick={handleEditClick}>
 					<EditIcon />
 				</button>

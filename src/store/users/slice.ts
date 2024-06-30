@@ -51,7 +51,7 @@ export const usersSlice = createSlice({
 				if (user.id === idToEdit) {
 					return { ...user, beingEdit: !user.beingEdit };
 				}
-				return { ...user };
+				return { ...user, beingEdit: false };
 			});
 		},
 
