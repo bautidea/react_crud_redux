@@ -3,7 +3,7 @@
 }
 
 .listOfUsers {
-  height: 100%;
+  height: 75px;
 }
 
 .listOfUsers:hover {
@@ -24,8 +24,6 @@
 
 .usersTable {
   table-layout: fixed;
-  width: 100;
-  padding: auto;
 }
 
 .headCell {
@@ -54,6 +52,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  box-sizing: content-box !important;
+  height:100%;
+  white-space: normal;
 }
 
 .marginRight {
@@ -71,5 +72,4 @@
   width: 80% !important;
   outline: none !important;
   box-shadow: none !important;
-  color: #fdfffc;
 }

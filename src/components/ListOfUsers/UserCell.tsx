@@ -30,13 +30,19 @@ export function UserCell({ user }: UserCellProps) {
 			</TableCell>
 			<TableCell>{email}</TableCell>
 			<TableCell className="gitCell">{github}</TableCell>
-			<TableCell className="actionCell">
-				<button type="button" className="marginRight" onClick={handleEditClick}>
-					<EditIcon />
-				</button>
-				<button type="button" onClick={handleRemoveClick}>
-					<DeleteIcon />
-				</button>
+			<TableCell>
+				<div className="actionCell">
+					<button
+						type="button"
+						className="marginRight"
+						onClick={handleEditClick}
+					>
+						<EditIcon />
+					</button>
+					<button type="button" onClick={handleRemoveClick}>
+						<DeleteIcon />
+					</button>
+				</div>
 			</TableCell>
 		</>
 	);

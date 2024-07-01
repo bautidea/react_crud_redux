@@ -81,13 +81,15 @@ function EditCell({ user }: UserCellProps) {
 				<TextInput name="github" placeholder={github} className="editInput" />
 			</TableCell>
 
-			<TableCell className="actionCell">
-				<button type="button" className="marginRight">
-					<CheckIcon />
-				</button>
-				<button type="button" onClick={handleStopEdit}>
-					<XCircle />
-				</button>
+			<TableCell>
+				<div className="actionCell">
+					<button type="button" className="marginRight">
+						<CheckIcon />
+					</button>
+					<button type="button" onClick={handleStopEdit}>
+						<XCircle />
+					</button>
+				</div>
 			</TableCell>
 		</>
 	);
