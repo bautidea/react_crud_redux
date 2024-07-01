@@ -11,6 +11,7 @@ import {
 	TextInput,
 	Title,
 } from "@tremor/react";
+import { useState } from "react";
 import { CheckIcon, XCircle } from "../../assets/icons";
 import { useAppSelector } from "../../hooks/store";
 import { useUserActions } from "../../hooks/useUserActions";
@@ -56,29 +57,75 @@ export function ListOfUsers() {
 	);
 }
 
+interface UsersEditInput {
+	name: string;
+	email: string;
+	github: string;
+}
+
 function EditCell({ user }: UserCellProps) {
 	const { id, name, email, github } = user;
 
 	const { editUser } = useUserActions();
 
+	const [editValues, setEditValues] = useState<UsersEditInput>({
+		name,
+		email,
+		github,
+	});
+
 	const handleStopEdit = () => {
 		editUser(id);
 	};
+
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		// I get the name to edit and its value.
+		const inputName = e.target.name;
+		const inputValue = e.target.value;
+
+		setEditValues((prevValue) => ({
+			...prevValue,
+			[inputName]: inputValue,
+		}));
+	};
+
+	const handleCommitEdit = () => {};
 
 	return (
 		<>
 			<TableCell>{id}</TableCell>
 
 			<TableCell>
-				<TextInput name="name" placeholder={name} className="editInput" />
+				<form onSubmit={handleCommitEdit}>
+					<TextInput
+						name="name"
+						value={editValues.name}
+						onChange={handleInputChange}
+						className="editInput"
+					/>
+				</form>
 			</TableCell>
 
 			<TableCell>
-				<TextInput name="email" placeholder={email} className="editInput" />
+				<form onSubmit={handleCommitEdit}>
+					<TextInput
+						name="email"
+						value={editValues.email}
+						onChange={handleInputChange}
+						className="editInput"
+					/>
+				</form>
 			</TableCell>
 
 			<TableCell className="gitCell">
-				<TextInput name="github" placeholder={github} className="editInput" />
+				<form onSubmit={handleCommitEdit}>
+					<TextInput
+						name="github"
+						value={editValues.github}
+						onChange={handleInputChange}
+						className="editInput"
+					/>
+				</form>
 			</TableCell>
 
 			<TableCell>
