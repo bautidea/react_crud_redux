@@ -1,10 +1,11 @@
 import { configureStore, type Middleware } from "@reduxjs/toolkit";
 import { toast } from "sonner";
-import { createUser, deleteUser } from "../services/users";
+import { createUser, deleteUser, updateUser } from "../services/users";
 import type { UserWithId } from "../types";
 import usersReducer, {
 	rollbackAddToState,
 	rollbackDropFromState,
+	rollbackRetrievePreviousEdit,
 } from "./users/slice";
 /* 
 Im defining a 'middleware' to make data persist in time. 
@@ -98,6 +99,29 @@ const syncWithData: Middleware = (store) => (next) => async (action) => {
 
 			// Doing rollback when user to be removed is found.
 			if (userToRemove) store.dispatch(rollbackAddToState(userToRemove));
+		}
+	}
+
+	// Middleware to catch when a user get updated.
+	if (type === "users/userUpdate") {
+		const userPreviousEdit = previousState.users.find((user: UserWithId) => {
+			return user.id === payload.id;
+		});
+
+		try {
+			const response = await updateUser(payload);
+
+			if (response.ok) toast.success(`User ${payload.id} updated correctly!`);
+			else {
+				throw new Error("Connection with DB was not successful");
+			}
+		} catch (error) {
+			toast.error(`User ${payload.id} couldn't be updated, server error.`);
+
+			// If the update in DB is not successful then im retrieving state previous
+			// information and pass it as update values.
+			if (userPreviousEdit)
+				store.dispatch(rollbackRetrievePreviousEdit(userPreviousEdit));
 		}
 	}
 };

@@ -89,6 +89,23 @@ export const usersSlice = createSlice({
 
 			return state.filter((user) => user.id !== idToFilter);
 		},
+
+		rollbackRetrievePreviousEdit: (
+			state,
+			action: PayloadAction<UserWithId>,
+		) => {
+			// This rollback is when a user couldn't be updated in DB, im going to
+			// assign the previous values the used had prior to update.
+			const userEdited = action.payload;
+
+			return state.map((user) => {
+				if (user.id === userEdited.id) {
+					return { ...userEdited, beingEdit: false };
+				}
+
+				return { ...user };
+			});
+		},
 	},
 	extraReducers(builder) {
 		builder.addCase(obtainUsers.fulfilled, (_state, action) => {
@@ -110,4 +127,5 @@ export const {
 	userUpdate,
 	rollbackAddToState,
 	rollbackDropFromState,
+	rollbackRetrievePreviousEdit,
 } = usersSlice.actions;

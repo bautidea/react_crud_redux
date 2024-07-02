@@ -57,3 +57,24 @@ export async function deleteUser(id: UserId) {
 			throw err;
 		});
 }
+
+export async function updateUser(user: UserWithId) {
+	return fetch(`${usersEndPoint}/${user.id}`, {
+		method: "PUT",
+		body: JSON.stringify({
+			id: user.id,
+			name: user.name,
+			email: user.email,
+			username: user.github,
+		}),
+		headers: {
+			"Content-type": "application/json; charset=UTF-8",
+		},
+	})
+		.then((response) => {
+			return response;
+		})
+		.catch((err) => {
+			throw err;
+		});
+}
