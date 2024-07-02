@@ -5,8 +5,9 @@ import {
 	deleteUserById,
 	editUserById,
 	obtainUsers,
+	userUpdate,
 } from "../store/users/slice";
-import type { User, UserId } from "../types";
+import type { User, UserId, UserWithId } from "../types";
 
 export function useUserActions() {
 	// In order to use reducer, first we must retrieve the way of performing
@@ -30,5 +31,8 @@ export function useUserActions() {
 		dispatch(editUserById(id));
 	};
 
-	return { getUsers, addUser, removeUser, editUser };
+	const updateUser = (user: UserWithId) => {
+		dispatch(userUpdate(user));
+	};
+	return { getUsers, addUser, removeUser, editUser, updateUser };
 }

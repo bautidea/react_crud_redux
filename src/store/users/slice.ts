@@ -55,6 +55,18 @@ export const usersSlice = createSlice({
 			});
 		},
 
+		userUpdate(state, action: PayloadAction<UserWithId>) {
+			const editedUser = action.payload;
+
+			return state.map((user) => {
+				if (user.id === editedUser.id) {
+					return { ...editedUser, beingEdit: false };
+				}
+
+				return { ...user };
+			});
+		},
+
 		rollbackAddToState: (state, action: PayloadAction<UserWithId>) => {
 			// First checking if the removed user is on the state.
 			const isUserAlreadyDefined = state.some(
@@ -95,6 +107,7 @@ export const {
 	addNewUser,
 	deleteUserById,
 	editUserById,
+	userUpdate,
 	rollbackAddToState,
 	rollbackDropFromState,
 } = usersSlice.actions;

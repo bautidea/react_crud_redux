@@ -10,7 +10,7 @@ export type UserId = number;
 
 export interface UserWithId extends User {
 	id: UserId;
-	beingEdit: boolean;
+	beingEdit?: boolean;
 }
 
 export interface FetchedData {
