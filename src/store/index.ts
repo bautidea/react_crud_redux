@@ -2,11 +2,13 @@ import { configureStore, type Middleware } from "@reduxjs/toolkit";
 import { toast } from "sonner";
 import { createUser, deleteUser, updateUser } from "../services/users";
 import type { UserWithId } from "../types";
+import popUpWindowReducer from "./popUpWindow/slice";
 import usersReducer, {
 	rollbackAddToState,
 	rollbackDropFromState,
 	rollbackRetrievePreviousEdit,
 } from "./users/slice";
+
 /* 
 Im defining a 'middleware' to make data persist in time. 
 * https://www.freecodecamp.org/news/what-is-redux-middleware-and-how-to-create-one-from-scratch/ 
@@ -131,6 +133,7 @@ const syncWithData: Middleware = (store) => (next) => async (action) => {
 export const store = configureStore({
 	reducer: {
 		users: usersReducer,
+		popUpWindow: popUpWindowReducer,
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware().concat([

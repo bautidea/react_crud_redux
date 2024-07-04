@@ -23,3 +23,9 @@ export interface FetchedData {
 export type UserCellProps = {
 	user: UserWithId;
 };
+
+export interface popUpWindow {
+	popUpWVisible: boolean;
+	actionDecision: boolean | null;
+	message: string;
+}
