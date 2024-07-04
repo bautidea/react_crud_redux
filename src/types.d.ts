@@ -24,8 +24,8 @@ export type UserCellProps = {
 	user: UserWithId;
 };
 
-export interface popUpWindow {
+export interface PopUpWindow {
 	popUpWVisible: boolean;
-	actionDecision: boolean | null;
+	triggerAction: boolean;
 	message: string;
 }

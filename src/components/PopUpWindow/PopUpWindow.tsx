@@ -1,27 +1,26 @@
-import { useState } from "react";
-import { XCircle } from "../../assets/icons";
+import { usePopUpWindowActions } from "../../hooks/usePopUpWindowActions";
 import "./PopUpWindow.css";
 
 export const PopUpWindow = () => {
-	const [showPopUpWindow, setShowPopUpWindow] = useState<boolean>(false);
-	const [actionDesision, setActionDesision] = useState<boolean | null>(null);
+	const { message, popUpWVisible, hideMessageWindow, acceptActionExecution } =
+		usePopUpWindowActions();
 
-	if (!showPopUpWindow) {
+	if (!popUpWVisible) {
 		return;
 	}
 
 	return (
 		<div className="popWindowContainer">
 			<div className="popWindow">
-				<button type="button" className="closeBtn">
-					<XCircle />
-				</button>
-
-				<p className="displayText">Message</p>
+				<p className="displayText">{message}</p>
 
 				<div className="actionBtn">
-					<button type="button">Got it!</button>
-					<button type="button">Decline</button>
+					<button type="button" onClick={acceptActionExecution}>
+						Got it!
+					</button>
+					<button type="button" onClick={hideMessageWindow}>
+						No
+					</button>
 				</div>
 			</div>
 		</div>

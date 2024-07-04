@@ -1,4 +1,5 @@
 import {
+	executeAction,
 	hidePopUpWindow,
 	setMessage,
 	showPopUpWindow,
@@ -6,7 +7,7 @@ import {
 import { useAppDispatch, useAppSelector } from "./store";
 
 export function usePopUpWindowActions() {
-	const { message, actionDecision, popUpWVisible } = useAppSelector(
+	const { message, popUpWVisible } = useAppSelector(
 		(state) => state.popUpWindow,
 	);
 	const dispatch = useAppDispatch();
@@ -23,12 +24,16 @@ export function usePopUpWindowActions() {
 		dispatch(setMessage(message));
 	};
 
+	const acceptActionExecution = () => {
+		dispatch(executeAction());
+	};
+
 	return {
 		message,
-		actionDecision,
 		popUpWVisible,
 		hideMessageWindow,
 		showMessageWindow,
 		setTextMessageWindow,
+		acceptActionExecution,
 	};
 }

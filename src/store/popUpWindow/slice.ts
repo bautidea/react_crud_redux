@@ -1,9 +1,9 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { popUpWindow } from "../../types";
+import type { PopUpWindow } from "../../types";
 
-const initialState: popUpWindow = {
+const initialState: PopUpWindow = {
 	popUpWVisible: false,
-	actionDecision: null,
+	triggerAction: false,
 	message: "",
 };
 
@@ -22,10 +22,15 @@ export const popUpWindowSlice = createSlice({
 		setMessage: (state, action: PayloadAction<string>) => {
 			state.message = action.payload;
 		},
+
+		executeAction: (state) => {
+			state.triggerAction = true;
+			state.popUpWVisible = false;
+		},
 	},
 });
 
-export const { showPopUpWindow, hidePopUpWindow, setMessage } =
+export const { showPopUpWindow, hidePopUpWindow, setMessage, executeAction } =
 	popUpWindowSlice.actions;
 
 export default popUpWindowSlice.reducer;
