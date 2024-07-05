@@ -53,9 +53,9 @@ export function CreateNewUser() {
 					</Button>
 
 					<span className="tooltip">
-						{result === "ok" && (
+						{/* {result === "ok" && (
 							<Badge className="badge badgeGreen">User saved</Badge>
-						)}
+						)} */}
 
 						{result === "ko" && (
 							<Badge className="badge badgeRed">Fields cant be empty</Badge>

@@ -2,20 +2,21 @@ import { TableCell } from "@tremor/react";
 import { DeleteIcon, EditIcon } from "../../assets/icons";
 import { usePopUpWindowActions } from "../../hooks/usePopUpWindowActions";
 import { useUserActions } from "../../hooks/useUserActions";
+import { possibleActions } from "../../store/popUpWindow/slice";
 import type { UserCellProps } from "../../types";
 import "./ListOfUsers.css";
 
 export function UserCell({ user }: UserCellProps) {
-	const { removeUser, editUser } = useUserActions();
+	const { editUser } = useUserActions();
 
-	const { setTextMessageWindow, showMessageWindow } = usePopUpWindowActions();
+	const { showMessageWindow } = usePopUpWindowActions();
 
 	const { id, name, email, github } = user;
 
 	function handleRemoveClick() {
-		setTextMessageWindow(`User ${id} is going to be deleted, ok?`);
-		showMessageWindow();
-		// action to be passed -> removeUser(id);
+		const message = `User ${id} is going to be deleted, ok?`;
+		const actionToExecute = { type: possibleActions.remove, payload: id };
+		showMessageWindow(message, actionToExecute);
 	}
 
 	function handleEditClick() {

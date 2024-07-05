@@ -2,7 +2,7 @@ import { usePopUpWindowActions } from "../../hooks/usePopUpWindowActions";
 import "./PopUpWindow.css";
 
 export const PopUpWindow = () => {
-	const { message, popUpWVisible, hideMessageWindow, acceptActionExecution } =
+	const { message, popUpWVisible, hideMessageWindow, executeAction } =
 		usePopUpWindowActions();
 
 	if (!popUpWVisible) {
@@ -15,7 +15,7 @@ export const PopUpWindow = () => {
 				<p className="displayText">{message}</p>
 
 				<div className="actionBtn">
-					<button type="button" onClick={acceptActionExecution}>
+					<button type="button" onClick={executeAction}>
 						Got it!
 					</button>
 					<button type="button" onClick={hideMessageWindow}>

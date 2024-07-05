@@ -1,10 +1,14 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { PopUpWindow } from "../../types";
+import type { ActionTypes, PopUpWindow } from "../../types";
 
 const initialState: PopUpWindow = {
 	popUpWVisible: false,
-	triggerAction: false,
+	triggerAction: null,
 	message: "",
+};
+
+export const possibleActions = {
+	remove: "REMOVE_USER" as const,
 };
 
 export const popUpWindowSlice = createSlice({
@@ -15,22 +19,21 @@ export const popUpWindowSlice = createSlice({
 			state.popUpWVisible = true;
 		},
 
-		hidePopUpWindow: (state) => {
-			state.popUpWVisible = false;
-		},
-
 		setMessage: (state, action: PayloadAction<string>) => {
 			state.message = action.payload;
 		},
 
-		executeAction: (state) => {
-			state.triggerAction = true;
-			state.popUpWVisible = false;
+		setAction: (state, action: PayloadAction<ActionTypes>) => {
+			state.triggerAction = action.payload;
+		},
+
+		resetState: () => {
+			return { ...initialState };
 		},
 	},
 });
 
-export const { showPopUpWindow, hidePopUpWindow, setMessage, executeAction } =
+export const { showPopUpWindow, setMessage, setAction, resetState } =
 	popUpWindowSlice.actions;
 
 export default popUpWindowSlice.reducer;
