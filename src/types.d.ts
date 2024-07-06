@@ -24,7 +24,9 @@ export type UserCellProps = {
 	user: UserWithId;
 };
 
-export type ActionTypes = { type: "REMOVE_USER"; payload: UserId };
+export type ActionTypes =
+	| { type: "REMOVE_USER"; payload: UserId }
+	| { type: "UPDATE_USER"; payload: UserWithId };
 
 export interface PopUpWindow {
 	popUpWVisible: boolean;

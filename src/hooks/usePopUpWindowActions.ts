@@ -16,7 +16,7 @@ export function usePopUpWindowActions() {
 
 	const dispatch = useAppDispatch();
 
-	const { removeUser } = useUserActions();
+	const { removeUser, updateUser } = useUserActions();
 
 	const showMessageWindow = (message: string, actionToExecute: ActionTypes) => {
 		dispatch(setMessage(message));
@@ -34,8 +34,13 @@ export function usePopUpWindowActions() {
 
 			if (type === possibleActions.remove) {
 				removeUser(payload);
-				hideMessageWindow();
 			}
+
+			if (type === possibleActions.update) {
+				updateUser(payload);
+			}
+
+			hideMessageWindow();
 		} else return;
 	};
 	return {

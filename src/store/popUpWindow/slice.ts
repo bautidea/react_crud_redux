@@ -9,6 +9,7 @@ const initialState: PopUpWindow = {
 
 export const possibleActions = {
 	remove: "REMOVE_USER" as const,
+	update: "UPDATE_USER" as const,
 };
 
 export const popUpWindowSlice = createSlice({

@@ -3,7 +3,9 @@ import { TableCell, TextInput } from "@tremor/react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { CheckIcon, XCircle } from "../../assets/icons";
+import { usePopUpWindowActions } from "../../hooks/usePopUpWindowActions";
 import { useUserActions } from "../../hooks/useUserActions";
+import { possibleActions } from "../../store/popUpWindow/slice";
 import type { UserCellProps } from "../../types";
 import "./ListOfUsers.css";
 
@@ -16,7 +18,9 @@ interface UsersEditInput {
 export function EditCell({ user }: UserCellProps) {
 	const { id, name, email, github } = user;
 
-	const { editUser, updateUser } = useUserActions();
+	const { editUser } = useUserActions();
+
+	const { showMessageWindow } = usePopUpWindowActions();
 
 	const [editValues, setEditValues] = useState<UsersEditInput>({
 		name,
@@ -46,7 +50,12 @@ export function EditCell({ user }: UserCellProps) {
 			return toast.error("Fields cant be empty when editing a user");
 		}
 
-		updateUser({ id, name, email, github });
+		const message = `User ${id} information is going to be updated, ok?`;
+		const actionToExecute = {
+			type: possibleActions.update,
+			payload: { id, name, email, github },
+		};
+		showMessageWindow(message, actionToExecute);
 	};
 
 	return (
