@@ -1,6 +1,5 @@
 # CRUD w/ React + Redux Toolkit + Biome toolchain & Tremor.
 
-
 In this project i developed a CRUD (Create Read Update Delete) to operate over a toy API, which state, will be managed by <a href='https://redux-toolkit.js.org/'>Redux Toolkit</a>.
 
 <div align='center' display='flex' flex-direction='row' width='100%' >
@@ -26,8 +25,8 @@ Developed project using:
 <li>Used API = <a href='https://jsonplaceholder.typicode.com'>{JSON} Placeholder</a>.</li>
 </ul>
 
-
 <div align='center' display='flex' flex-direction='row' width='100%'>
-<img src='./public/gif_deleting_user_fail.gif' width='47%' >
-<img src='./public/gif_deleting_user_succes.gif' width='47%' >
+<img src='./public/gif_deleting_user_fail.gif' width='80%' >
+<img src='./public/gif_creating_user.gif' width='80%' >
+<img src='./public/git_editing_user.gif' width='80%' >
 </div>
